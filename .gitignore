@@ -1,5 +1,5 @@
 /.idea/*
-/configs/db-backup/*
-/cloud-uploads/*
+/configs/db-backup/
+/cloud-uploads/
 /vendor/*
 /configs/access/v7.treencol.com/
