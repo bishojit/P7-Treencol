@@ -34,10 +34,7 @@ $TimeZone = new TimeZone();
 $SoftInfo = new SoftInfo($AppInit);
 
 //--Auth Checking
-$Auth = new Auth($SystemDefaults, $AppInit->getUserIndex());
-
-//--Include App Functions
-include "app/app-functions.php";
+$Auth = new Auth($SystemDefaults, $AppInit->getUserIndex(), $AppInit->getUriMethod());
 
 //--Method
 $method = new Method($Route);
