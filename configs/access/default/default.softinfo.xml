@@ -1,0 +1,46 @@
+<resources>
+    <vlaidation>
+        <fvt>1</fvt>
+    </vlaidation>
+
+    <apache>
+        <display-errors>-1</display-errors>
+        <logs-errors>-1</logs-errors>
+        <memory-limit>-1</memory-limit>
+    </apache>
+
+    <time>
+        <zone>Asia/Dhaka</zone>
+    </time>
+
+    <software>
+        <title>Treencol Software</title>
+        <description>A Smart Framework</description>
+        <keywords>Treencol, Software, A smart Framework</keywords>
+        <imgUrl>/assets/images/treencol.com</imgUrl>
+        <type>software</type>
+        <!--<feedUrl></feedUrl>-->
+
+        <organizationName>Organization Name</organizationName>
+        <organizationAddress>House-1, Road-7, Block-E, Mirpur-1, [b]Dhaka[/b]</organizationAddress>
+        <organizationPhone>+8801925363333</organizationPhone>
+        <organizationFax>+8801925363333</organizationFax>
+        <organizationWebsite>http://www.bikiran.com</organizationWebsite>
+        <organizationEmail>info@bikiran.com</organizationEmail>
+        <organizationLogoUrl>/assets/logo-bikiran.png</organizationLogoUrl>
+
+    </software>
+
+    <fb>
+        <!--<app_id></app_id>-->
+    </fb>
+
+    <twitter>
+        <!--<card></card>
+        <creator></creator>-->
+    </twitter>
+
+    <google>
+        <analytics-code>software</analytics-code>
+    </google>
+</resources>

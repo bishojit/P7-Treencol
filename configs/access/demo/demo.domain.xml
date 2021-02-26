@@ -1,0 +1,5 @@
+<resources>
+    <domain val="demo.*"/>
+    <root-url val="demo.*"/>
+    <file-url val="demo.*"/>
+</resources>

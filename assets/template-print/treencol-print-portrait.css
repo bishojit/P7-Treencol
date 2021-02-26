@@ -1,0 +1,73 @@
+
+body {
+    width: 800px;
+}
+
+.header {
+    height: 150px;
+    width: 800px;
+}
+
+.header-space {
+    height: 160px;
+    width: 800px;
+}
+
+.footer-space {
+    height: 110px;
+    width: 800px;
+}
+
+.stricture {
+    width: 800px;
+}
+
+.footer {
+    height: 100px;
+    width: 800px;
+    margin-top: -100px;
+}
+
+.content {
+    min-height: 800px;
+}
+
+@media print {
+    html, body {
+        width: 800px;
+    }
+
+    .header {
+        height: 150px;
+        width: 800px;
+    }
+
+    .header-space {
+        height: 160px;
+        width: 800px;
+    }
+
+    .footer {
+        height: 100px;
+        width: 800px;
+        margin-top: -100px;
+    }
+
+    .footer-space {
+        height: 110px;
+        width: 800px;
+    }
+
+    .stricture {
+        width: 800px;
+    }
+
+    .content {
+        width: 800px; /*calc(100% - 250px);*/
+    }
+
+    @page {
+        size: A4 portrait;
+        margin: 0;
+    }
+}

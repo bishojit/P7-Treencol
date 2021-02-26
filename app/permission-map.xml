@@ -1,0 +1,7 @@
+<!--Do not Delete This File, route.php use this file-->
+<resources>
+    <add perm="developer">admin</add>
+    <add perm="developer">user</add>
+
+    <remove perm="developer">user</remove>
+</resources>

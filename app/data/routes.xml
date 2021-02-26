@@ -1,0 +1,6 @@
+<resources>
+    <controller val="Development" pageTitle="Development" validationToken="false" auth="true">
+
+        <route val="import/{test}/now" get="routes"/>
+    </controller>
+</resources>

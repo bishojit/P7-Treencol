@@ -1,0 +1,37 @@
+{
+  "13": {
+    "operator": "Grameenphone",
+    "op": "GP",
+    "fullDigit": "13"
+  },
+  "14": {
+    "operator": "Banglalink",
+    "op": "BL",
+    "fullDigit": "13"
+  },
+  "15": {
+    "operator": "Teletalk",
+    "op": "TT",
+    "fullDigit": "13"
+  },
+  "16": {
+    "operator": "Airtel",
+    "op": "AT",
+    "fullDigit": "13"
+  },
+  "17": {
+    "operator": "Grameenphone",
+    "op": "GP",
+    "fullDigit": "13"
+  },
+  "18": {
+    "operator": "Robi",
+    "op": "RB",
+    "fullDigit": "13"
+  },
+  "19": {
+    "operator": "Banglalink",
+    "op": "BL",
+    "fullDigit": "13"
+  }
+}

@@ -1,0 +1,4 @@
+<resources>
+    <domain alias="portal-cljschool.edusoft.com.bd" target="portal.cljschool.com"/>
+    <domain alias="myschool.edusoft.com.bd" target="portal.cljschool.com"/>
+</resources>

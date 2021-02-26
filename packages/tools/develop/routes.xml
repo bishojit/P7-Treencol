@@ -1,0 +1,16 @@
+<resources>
+    <controller val="DevelopRoute" pageTitle="Develop Route" validationToken="false" auth="true">
+
+        <route val="routes" get="routeList"/>
+    </controller>
+
+    <controller val="DevelopMenu" pageTitle="Db Menu" validationToken="false" auth="true">
+
+        <route val="menu" get="menuList"/>
+    </controller>
+
+    <controller val="DevelopDbCompare" pageTitle="Db Compare" validationToken="false" auth="true">
+
+        <route val="db-compare" get="dbCompare" post="dbComparePost"/>
+    </controller>
+</resources>

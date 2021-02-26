@@ -1,0 +1,23 @@
+<resources>
+    <styles>
+        <css>/assets/normalize-8.0.1/normalize.css</css> <!--Supporting Library, Priority Top-->
+        <css>/assets/bootstrap-4.3.1/css/bootstrap.min.css</css>
+        <css>/assets/fontawesome-free-5.9.0/css/all.min.css</css>
+        <css>/assets/fonts/bn-Kiron/fonts.css</css>
+        <css>/assets/animate/animate.css</css>
+        <css>/assets/fotorama-4.6.4/fotorama.css</css>
+
+        <css>/assets/template-trnews/trnews.style.css</css>
+    </styles>
+
+    <scripts>
+        <js>/assets/jquery-3.4.1/jquery-3.4.1.min.js</js>
+        <js>/assets/bootstrap-4.3.1/js/bootstrap.min.js</js>
+        <js>/assets/fotorama-4.6.4/fotorama.js</js>
+
+        <js>https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js</js>
+
+        <js>/assets/treencol/treencol-ajax-form-1.0.js</js>
+        <js>/assets/treencol/treencol-ajax-page-load-1.0.js</js>
+    </scripts>
+</resources>

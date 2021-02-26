@@ -1,0 +1,225 @@
+:root {
+    --background-color: #EEE;
+    --theme-color: #FFF;
+    --text-color: #00a5bb;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0 0 100px 110px;
+    color: var(--text-color);
+    font-family: "Raleway", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 25px;
+    min-height: 450px;
+    overflow-y: scroll;
+    background: var(--background-color);
+}
+
+/* Home Page */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    background: var(--theme-color);
+    width: 110px;
+    height: 100%;
+    padding-top: 41px;
+}
+
+.sidebar > a {
+    display: block;
+    color: var(--text-color);
+    text-align: center;
+    font-size: 15px;
+    margin-bottom: 40px;
+    font-weight: bold;
+    position: relative;
+}
+
+.sidebar > a > img {
+    width: 50px;
+}
+
+.sidebar-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar-menu > li {
+    display: block;
+    padding: 20px 0;
+    box-sizing: border-box;
+    border-bottom: 1px solid #eeeeee94;
+}
+
+.sidebar-menu > li > a {
+    display: block;
+    color: var(--text-color);
+    text-align: center;
+    font-size: 15px;
+    font-weight: bold;
+    position: relative;
+}
+
+.sidebar-menu > li > a > img {
+    width: 50px;
+}
+
+
+.sidebar-menu > li > a > i {
+    font-size: 20px;
+    margin-bottom: 12px;
+}
+
+.sidebar-menu > li > a.active:before {
+    top: 7px;
+    right: -11px;
+    height: 26px;
+    width: 13px;
+    content: "\f0da";
+    color: var(--theme-color);
+    font-size: 49px;
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    text-decoration: none;
+    position: absolute;
+}
+
+.content {
+    /*width: calc(100% - 110px);*/
+    /*margin-left: 110px;*/
+}
+
+header {
+
+}
+
+.top-layer-1 {
+    line-height: 50px;
+}
+
+.icon-notification {
+    display: inline-block;
+}
+
+.icon-notification > i {
+    font-size: 26px;
+    position: relative;
+    bottom: -6px;
+}
+
+.icon-notification > span {
+    background: #F00;
+    position: relative;
+    display: inline-block;
+    height: 23px;
+    line-height: 20px;
+    width: 23px;
+    text-align: center;
+    border-radius: 50%;
+    border: 2px #fff solid;
+    left: -14px;
+    top: 9px;
+    color: #ffff;
+    font-weight: bold;
+    font-size: 13px;
+    padding-bottom: 3px;
+}
+
+.user-info {
+
+}
+
+h1 {
+    font-size: 25px;
+    line-height: 34px;
+    margin: 0 0 25px 0;
+    color: #363B40;
+    font-weight: 500;
+}
+
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.nav {
+    position: relative;
+    bottom: -1.6px;
+}
+
+.nav > li {
+    line-height: 56px;
+    margin-right: 30px;
+    padding: 0 2px;
+}
+
+.nav > li:hover, .nav > li.active {
+    border-bottom: #FF0000 solid 2px;
+}
+
+.nav > li > a {
+    color: #999;
+    text-decoration: none;
+}
+
+.nav > li.active > a {
+    color: #FF0000;
+    font-weight: bold;
+}
+
+.nav > li:hover > a {
+    color: #FF0000;
+}
+
+.tbl-product-list {
+
+}
+
+.tbl-product-list > thead {
+
+}
+
+.tbl-product-list > thead > tr {
+
+}
+
+.tbl-product-list > thead > tr > td {
+    line-height: 50px;
+    border-bottom: 2px solid #eaeaea;
+}
+
+.tbl-product-list > tbody {
+
+}
+
+.tbl-product-list > tbody > tr {
+
+}
+
+.tbl-product-list > tbody > tr > td {
+    padding: 10px 0;
+    font-size: 17px;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.tbl-product-list > tbody > tr > td > strong {
+    color: #000;
+}
+
+.tbl-product-list input[type='checkbox'] {
+    font-size: 20px;
+    margin: 10px;
+}
+
+a {
+    color: var(--theme-color);
+}

@@ -1,0 +1,48 @@
+<resources>
+    <styles>
+        <css>/assets/normalize-8.0.1/normalize.css</css> <!--Supporting Library, Priority Top-->
+        <css>/assets/animate/animate.css</css>
+        <css>/assets/bootstrap-4.3.1/css/bootstrap.min.css</css>
+        <css>/assets/bootstrap-4.3.1/css/floating-labels.css</css>
+        <css>/assets/date-picker-tempusdominus-5.1.2/build/css/tempusdominus-bootstrap-4.min.css</css>
+        <css>/assets/jquery-ui-1.12.1/jquery-ui.min.css</css>
+        <css>/assets/data-tables/datatables.min.css</css>
+
+        <css>/assets/fontawesome-free-5.9.0/css/all.min.css</css>
+        <css>/assets/fonts/iconsmind/style.css</css>
+        <css>/assets/fonts/iconsmind-s/css/iconsminds.css</css>
+        <css>/assets/fonts/simple-line-icons/css/simple-line-icons.css</css>
+        <css>/assets/fonts/bn-Kiron/fonts.css</css>
+
+        <css>/assets/lobibox-master/dist/css/lobibox.min.css</css>
+
+        <css>/assets/template-dore/css/dore.light.blue.css</css>
+        <css>/assets/template-dore/css/dore.main.css</css>
+
+        <css>/assets/template-dore/css/dore.style.css</css>
+
+    </styles>
+
+    <scripts>
+        <js>/assets/jquery-3.4.1/jquery-3.4.1.min.js</js>
+        <js>/assets/jquery-ui-1.12.1/jquery-ui.min.js</js>
+        <js>https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js</js>
+        <js>https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js</js>
+        <js>/assets/bootstrap-4.3.1/js/bootstrap.min.js</js>
+        <js>/assets/data-tables/datatables.min.js</js>
+
+        <js>/assets/bootstrap-confirmation/dist/bootstrap-confirmation.min.js</js>
+        <js>/assets/date-picker-tempusdominus-5.1.2/build/js/tempusdominus-bootstrap-4.min.js</js>
+
+        <js>/assets/lobibox-master/dist/js/lobibox.min.js</js>
+        <js>/assets/simple-upload-1.1/simpleUpload.min.js</js>
+
+        <js>/assets/template-dore/js/dore.script.js</js>
+        <js>/assets/template-dore/js/main.js</js>
+
+        <js>/assets/treencol/treencol-ajax-form-1.0.js</js>
+        <js>/assets/treencol/treencol-ajax-page-load-1.0.js</js>
+        <js>/assets/treencol/treencol-ajax-file-upload-1.0.js</js>
+        <js>/assets/template-dore/js/scripts.js</js>
+    </scripts>
+</resources>

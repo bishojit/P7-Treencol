@@ -1,0 +1,4 @@
+<resources>
+    <multi_users type="bool">1</multi_users>
+    <upload_dir type="string">cloud-uploads/</upload_dir>
+</resources>

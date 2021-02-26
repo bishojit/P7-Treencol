@@ -1,0 +1,72 @@
+body {
+    width: 1090px;
+}
+
+.header {
+    height: 100px;
+    width: 1090px;
+}
+
+.header-space {
+    height: 110px;
+    width: 1090px;
+}
+
+.footer-space {
+    height: 90px;
+    width: 1090px;
+}
+
+.stricture {
+    width: 1090px;
+}
+
+.footer {
+    height: 80px;
+    width: 1090px;
+    margin-top: -80px;
+}
+
+.content {
+    min-height: 500px;
+}
+
+@media print {
+    html, body {
+        width: 1090px;
+    }
+
+    .header {
+        height: 100px;
+        width: 1090px;
+    }
+
+    .header-space {
+        height: 110px;
+        width: 1090px;
+    }
+
+    .footer {
+        height: 80px;
+        width: 1090px;
+        margin-top: -80px;
+    }
+
+    .footer-space {
+        height: 90px;
+        width: 1090px;
+    }
+
+    .stricture {
+        width: 1090px;
+    }
+
+    .content {
+        width: 1090px; /*calc(100% - 250px);*/
+    }
+
+    @page {
+        size: A4 landscape;
+        margin: 0;
+    }
+}

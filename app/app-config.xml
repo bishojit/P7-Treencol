@@ -1,0 +1,9 @@
+<!--Do not Delete This File, route.php use this file-->
+<resources>
+
+
+    <modules dir="../packages/tools/defaults" priority="95" preRoutes="null" status="1" title="Defaults"/>
+    <modules dir="data" priority="97" preRoutes="data" status="1" title="Data"/>
+    <modules dir="../packages/tools/develop" priority="98" preRoutes="develop" status="1" title="Develop"/>
+    <modules dir="system" priority="99" preRoutes="null" status="1" title="System"/>
+</resources>

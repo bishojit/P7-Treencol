@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'Kiron';
+    src: url('/assets/fonts/bn-Kiron/Kiron.eot?#iefix') format('embedded-opentype'),
+    url('/assets/fonts/bn-Kiron/Kiron.woff') format('woff'),
+    url('/assets/fonts/bn-Kiron/Kiron.ttf')  format('truetype'),
+    url('/assets/fonts/bn-Kiron/Kiron.otf')  format('truetype'),
+    url('/assets/fonts/bn-Kiron/Kiron.svg#svgFontName') format('svg');
+}

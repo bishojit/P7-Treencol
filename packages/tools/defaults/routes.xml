@@ -1,0 +1,16 @@
+<resources>
+    <controller val="LiveTemplateUrl" pageTitle="Live Template" validationToken="false" auth="false">
+
+        <route val="live-template.js" get="liveTemplate"/>
+    </controller>
+
+    <controller val="TokenUrl" pageTitle="Generate Token" validationToken="false" auth="false">
+
+        <route val="generate/token" post="fvtGenerator"/>
+    </controller>
+
+    <controller val="SystemPHP" pageTitle="Generate Token" validationToken="false" auth="false">
+
+        <route val="treen-phpinfo" get="treenPhpInfo"/>
+    </controller>
+</resources>

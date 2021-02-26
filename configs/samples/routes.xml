@@ -1,0 +1,6 @@
+<resources>
+    <controller val="ControllerName" pageTitle="Controller Name" validationToken="false" auth="false">
+
+        <route val="/" get="getMethodName" post="postMethodName" perm=""/>
+    </controller>
+</resources>

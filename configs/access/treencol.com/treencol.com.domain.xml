@@ -1,0 +1,5 @@
+<resources>
+    <domain val="treencol.com"/>
+    <root-url val="//software.treencol.com"/>
+    <file-url val="//treencol.com/cloud-uploads"/>
+</resources>

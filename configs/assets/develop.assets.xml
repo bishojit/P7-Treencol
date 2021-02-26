@@ -1,0 +1,27 @@
+<resources>
+    <group name="required">
+        <js>//cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js</js>
+        <js>//cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js</js>
+    </group>
+
+    <group name="bootstrap">
+        <css>//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css</css>
+        <js>//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.js</js>
+    </group>
+
+    <group name="fonts-icons">
+        <css>//cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css</css>
+    </group>
+
+    <group name="template-develop">
+        <css>/assets/template-develop/css/style.css</css>
+        <js>/assets/template-develop/js/scripts.js</js>
+    </group>
+
+    <group name="treencol">
+        <js>/assets/treencol/treencol-ajax-form-1.0.js</js>
+        <js>/assets/treencol/treencol-ajax-page-load-1.0.js</js>
+        <js>/assets/treencol/treencol-ajax-file-upload-1.0.js</js>
+        <js>/assets/treencol/treencol-jquery-ui-autocomplete-1.0.js</js>
+    </group>
+</resources>

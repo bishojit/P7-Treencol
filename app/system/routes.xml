@@ -1,0 +1,6 @@
+<resources>
+    <controller val="System" pageTitle="Development" validationToken="false" auth="false">
+
+        <route val="/" get="index"/>
+    </controller>
+</resources>
