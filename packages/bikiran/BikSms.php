@@ -2,19 +2,15 @@
 
 namespace Packages\bikiran;
 
-
 use Packages\mobile\MobileNumber;
 
 class BikSms
 {
-    private $username = "";
-    private $password = "";
-    private $messageAr = [];
-    private $senderNo = "";
-    /**
-     * @var MobileNumber
-     */
-    private $MobileNumber;
+    private string $username = "";
+    private string $password = "";
+    private array $messageAr = [];
+    private string $senderNo = "";
+    private MobileNumber $MobileNumber;
 
     function __construct()
     {

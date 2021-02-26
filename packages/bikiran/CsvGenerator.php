@@ -27,7 +27,7 @@ class CsvGenerator
             $row_ar[] = implode(",", $cell_ar);
         }
 
-        $filename = "test.csv";
+        $filename = "$putHeader.csv";
 
         header('Content-Type: application/csv; charset=UTF-8');
         header('Content-Disposition: attachment; filename="' . $filename . '";');

@@ -1,27 +1,29 @@
 <?php
 
-
 namespace Core;
 
+use Packages\mysql\QuerySelect;
 
 class Auth
 {
-    private $SystemDefaults;
-    private $userSl = 0;
-    private $userInfoAr = [];
-    private $requiredPermission_ar = [];
-    private $detectedPermission_ar = [];
-    private $remainPermission_ar = [];
+    private SystemDefaults $SystemDefaults;
+    private int $userSl = 0;
+    private array $userInfoAr = [];
+    private array $requiredPermission_ar = [];
+    private array $detectedPermission_ar = [];
+    private array $remainPermission_ar = [];
+    private string $uriMethod = "";
 
-    public function __construct(SystemDefaults $SystemDefaults, int $userIndex)
+    public function __construct(SystemDefaults $SystemDefaults, int $userIndex, string $uriMethod)
     {
         global $SoftInfo;
+        $this->uriMethod = $uriMethod;
 
         $this->SystemDefaults = $SystemDefaults;
         //$multiUser = $this->SystemDefaults->getMultiUser();
 
-        //--Session Auth
-        $this->userSl = (int)array_values($_SESSION['user_sl_ar'] ?: [])[$userIndex];
+        //--Pick User SL
+        $this->userSl = $this->pickUserSl($userIndex);
 
         //--Collect UserInfo
         $this->userInfoAr = getRow('system_users', $this->userSl);
@@ -71,7 +73,7 @@ class Auth
             $message = "";
             if (!$this->userInfoAr) {
 
-                $message = "User not found";
+                $message = "You are not logged in. Please Login";
             } else if ($this->userInfoAr['time_deleted']) {
 
                 $message = "User not valid";
@@ -84,9 +86,22 @@ class Auth
             }
 
             if ($message) {
+                if ($uriMethod == "GET") {
+                    $configLoginRoute = $SoftInfo->getData()->system->loginUri;
+                    $currentUrl = mkUrl(route()->getUriRoute(), route()->getUriVariablesAr(), $_GET);
+                    $loginPage = mkUrl($configLoginRoute, [], ['url' => $currentUrl]);
 
-                $currentUrl = mkUrl(route()->getUriRoute(), route()->getUriVariablesAr(), $_GET);
-                header("Location: " . mkUrl($SoftInfo->getData()->system->loginUri, [], ['url' => $currentUrl]));
+                    if ($loginPage != "#") {
+                        header("Location: {$loginPage}");
+                    } else {
+                        ErrorPages::Auth(2, "Invalid Login Route in " . getDefaultDomain() . ".softinfo.xml file ->system->loginUri", $this);
+                    }
+                } else {
+                    echo json_encode([
+                        'error' => 2,
+                        'message' => $message
+                    ]);
+                }
                 //message("User not active"); //todo: error-code required
                 exit();
             } else if (!empty($this->remainPermission_ar)) {
@@ -101,6 +116,37 @@ class Auth
                 $TimeZone->setTimeZone($this->userInfoAr['time_zone']);
             }
         }
+    }
+
+    private function pickUserSl($userIndex): int
+    {
+        //--If Session Access Activated
+        if ($this->SystemDefaults->isSessionAccess() && !empty($_SESSION['user_sl_ar'])) {
+            //--Session Auth
+            return (int)array_values($_SESSION['user_sl_ar'] ?: [])[$userIndex];
+        }
+
+        if ($this->SystemDefaults->isTokenAccess()) {
+            //--Collect Token Info
+            $select = new QuerySelect("system_users_login");
+            $select->setQueryString("
+            SELECT `user_sl`
+            FROM `system_users_login`
+            WHERE `unique_key`=" . quote(getallheaders()[$this->SystemDefaults->getTokenName()]) . "
+            ");
+            $select->pull();
+            $userSl = (int)array_values($select->getColValues('user_sl'))[$userIndex] ?: 0;
+
+            if ($userSl) {
+                header("Secure-Auth: true");
+            }
+
+            //dd($select->getQueryString());
+
+            return $userSl;
+        }
+
+        return 0;
     }
 
     private function chkRemainPermission($requiredPermission_ar, $detectedPermission_ar)

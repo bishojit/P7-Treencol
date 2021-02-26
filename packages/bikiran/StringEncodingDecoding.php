@@ -6,7 +6,7 @@ namespace Packages\bikiran;
 
 class StringEncodingDecoding
 {
-    static $string = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789-_";
+    static string $string = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789-_";
 
     static function encoding(string $in): string
     {
@@ -27,7 +27,7 @@ class StringEncodingDecoding
         return $out;
     }
 
-    static function decoding($in): string
+    static function decoding(string $in): string
     {
         $out = '';
         $bit_ar = [];

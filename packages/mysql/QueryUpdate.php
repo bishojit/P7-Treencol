@@ -1,26 +1,24 @@
 <?php
 
-
 namespace Packages\mysql;
-
 
 use PDOException;
 
 class QueryUpdate
 {
-    private $table = "";
-    private $pdo;
-    private $indexColumn = "sl";
-    private $updatedColumn = "time_updated";
-    private $creatorColumn = "creator";
+    private string $table = "";
+    private \PDO $pdo;
+    private string $indexColumn = "sl";
+    private string $updatedColumn = "time_updated";
+    private string $creatorColumn = "creator";
 
-    private $error = 1;
-    private $message = "Not Pushed";
-    private $history = true;
-    private $oldRowAll_ar = [];
-    private $newRowAll_ar = [];
-    private $queryString = "";
-    private $updateOnlyPermittedRow = true;
+    private int $error = 1;
+    private string $message = "Not Pushed";
+    private bool $history = true;
+    private array $oldRowAll_ar = [];
+    private array $newRowAll_ar = [];
+    private string $queryString = "";
+    private bool $updateOnlyPermittedRow = true;
 
     public function __construct(string $table, bool $updateOnlyPermittedRow = true)
     {
@@ -37,25 +35,25 @@ class QueryUpdate
         return $this;
     }
 
-    function setAuthorized(): QueryUpdate
+    function setAuthorized(): self
     {
         $this->updateOnlyPermittedRow = false;
         return $this;
     }
 
-    public function setHistory(bool $boolean): QueryUpdate
+    public function setHistory(bool $boolean): self
     {
         $this->history = $boolean;
         return $this;
     }
 
-    public function setIndexColumn(string $indexColumn): QueryUpdate
+    public function setIndexColumn(string $indexColumn): self
     {
         $this->indexColumn = $indexColumn;
         return $this;
     }
 
-    public function updateRow(array $oldRow_ar, array $newRow_ar): QueryUpdate
+    public function updateRow(array $oldRow_ar, array $newRow_ar): self
     {
         $indexId = $oldRow_ar[$this->indexColumn];
 
@@ -64,7 +62,7 @@ class QueryUpdate
         return $this;
     }
 
-    public function push(): QueryUpdate
+    public function push(): self
     {
         $q_ar = [];
         $rowUpdatedIndex_ar = [];
@@ -184,7 +182,7 @@ class QueryUpdate
         return $this->error;
     }
 
-    public function setMessage(string $message): QueryUpdate
+    public function setMessage(string $message): self
     {
         $this->message = $message;
         return $this;
@@ -195,58 +193,3 @@ class QueryUpdate
         return $this->message;
     }
 }
-
-/*
-
-
-
-        foreach ($this->oldRowAll_ar as $sl => $oldRow_ar) {
-            $qField_ar = [];
-            foreach ($oldRow_ar as $key => $val) {
-                $indexId = $oldRow_ar[$this->indexColumn];
-
-                //--Index Column Will Not Modified
-                if ($this->newRowAll_ar[$indexId][$key] !== null && $key != $this->indexColumn) {// &&  && $this->newRowAll_ar[$indexId][$key] != $val
-
-                    if (($this->updateOnlyPermittedRow == true && $this->oldRowAll_ar[$indexId][$this->creatorColumn] == getUserSl()) || $this->updateOnlyPermittedRow == false) {
-
-                        $qField_ar[$key] = "`$key` = " . $this->pdo->quote($this->newRowAll_ar[$indexId][$key]);
-
-                        if ($this->history == true) {
-                            $insertHistory->addRow([
-                                'tbl' => $this->table,
-                                'col' => $key,
-                                'tsl' => $indexId,
-                                'value_ex' => $val,
-                                'value_new' => $this->newRowAll_ar[$indexId][$key]
-                            ]);
-                        }
-                        $rowUpdatedIndex_ar[$indexId] = true;
-                    } else {
-
-                        if ($this->history == true) {
-                            $insertHistory->addRow([
-                                'tbl' => $this->table,
-                                'col' => $key,
-                                'tsl' => $indexId,
-                                'value_ex' => $val,
-                                'value_new' => json_encode([$this->newRowAll_ar[$indexId][$key], "No Permission"])
-                            ]);
-                        }
-                    }
-                }
-
-
-                if ($this->updateOnlyPermittedRow == true && $this->oldRowAll_ar[$indexId][$this->creatorColumn] == getUserSl()) {
-                    $rowUpdatedIndex_ar[$indexId] = true;
-                }
-            }
-            if ($qField_ar) {
-                $q_ar[] = "
-                UPDATE `" . $this->table . "`
-                SET `" . $this->updatedColumn . "`=" . $this->pdo->quote(getTime()) . ",
-                    " . implode(", ", $qField_ar) . "
-                WHERE `" . $this->indexColumn . "` = " . $oldRow_ar[$this->indexColumn];
-            }
-        }
-*/

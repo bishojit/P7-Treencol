@@ -1,12 +1,10 @@
 <?php
 
-
 namespace Core;
-
 
 class SoftInfo
 {
-    private $data;
+    private \SimpleXMLElement $data;
 
     function __construct(AppInit $AppInit)
     {

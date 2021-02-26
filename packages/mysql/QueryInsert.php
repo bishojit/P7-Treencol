@@ -2,19 +2,20 @@
 
 namespace Packages\mysql;
 
+use Packages\bikiran\Validation;
 use PDOException;
 
 class QueryInsert
 {
-    private $table = "";
-    private $pdo;
-    private $rowIndex = 0;
-    private $rowAll_ar = [];
-    private $error = 1;
-    private $message = "Not Pushed";
-    private $defCol_ar = [];
-    private $queryString = "";
-    private $lastInsertedId = 0;
+    private string $table = "";
+    private \PDO $pdo;
+    private int $rowIndex = 0;
+    private array $rowAll_ar = [];
+    private int $error = 1;
+    private string $message = "Not Pushed";
+    private array $defCol_ar = [];
+    private string $queryString = "";
+    private int $lastInsertedId = 0;
 
     public function __construct(string $table, bool $isSetDefaultCols = true)
     {
@@ -25,7 +26,7 @@ class QueryInsert
             $this->setDefaultCols();
     }
 
-    public function setDefaultCols(string $col = null, string $defaultValue = null): QueryInsert // null = all default
+    public function setDefaultCols(string $col = null, string $defaultValue = null): self // null = all default
     {
         if ($col === null && $defaultValue === null) {
             $this->defCol_ar['creator'] = getUserSl();
@@ -39,7 +40,7 @@ class QueryInsert
         return $this;
     }
 
-    public function addRow(array $row_ar): QueryInsert
+    public function addRow(array $row_ar): self
     {
         foreach ($row_ar as $key => $val) {
             $this->rowAll_ar[$this->rowIndex][$key] = $val;
@@ -54,14 +55,14 @@ class QueryInsert
         return $this;
     }
 
-    public function push(): QueryInsert
+    public function push(): self
     {
         $key_ar = [];
-        $val_ar = [];
         $qVal_ar = [];
 
         //--Creating Queries
         foreach ($this->rowAll_ar as $row_ar) {
+            $val_ar = [];
             ksort($row_ar);
             foreach ($row_ar as $key => $val) {
                 $key_ar[$key] = "`$key`";
@@ -69,8 +70,6 @@ class QueryInsert
             }
 
             $qVal_ar[] = "(" . implode(", ", $val_ar) . ")";
-            unset($val_ar);
-            unset($row_ar);
         }
 
         //--Query String
@@ -92,6 +91,8 @@ class QueryInsert
                 $qLog = new QueryLog();
                 $qLog->saveLogQueryError($this->queryString, $this->message);
             }
+        } else{
+            $this->message = "Nothing to Insert";
         }
         return $this;
     }
@@ -111,7 +112,7 @@ class QueryInsert
         return $this->error;
     }
 
-    public function setMessage(string $message): QueryInsert
+    public function setMessage(string $message): self
     {
         $this->message = $message;
         return $this;

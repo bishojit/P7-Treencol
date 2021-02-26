@@ -6,7 +6,7 @@ namespace Packages\bikiran;
 
 class PageCache
 {
-    private $headersAr = [];
+    private array $headersAr = [];
 
     function __construct(int $timeCreated, int $duration)
     {

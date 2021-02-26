@@ -4,17 +4,18 @@ namespace Packages\bikiran;
 
 class FileSave
 {
-    private $error = 1;
-    private $message = "";
-    private $newPath = "";
-    private $oldPath = "";
-    private $newUrl = "";
+    private int $error = 1;
+    private string $message = "";
+    private string $newPath = "";
+    private string $oldPath = "";
+    private string $oldUrl = "";
+    private string $newUrl = "";
 
-    function __construct(string $path, string $dir)
+    function __construct(string $url, string $dir)
     {
         //--
-        $this->getImageOldPath($path);
-        $this->getImageNewPath($path, $dir);
+        $this->getFileOldPath($url);
+        $this->getFileNewPath($url, $dir);
 
         $newDirName = pathinfo($this->newPath, PATHINFO_DIRNAME);
         $dirCreationSt = true;
@@ -42,36 +43,25 @@ class FileSave
         }
     }
 
-    private function getImageOldPath(string $url)
+    private function getFileOldPath(string $url)
     {
-        $oldPath = "";
+        $this->oldUrl = $url;
         if (substr($url, 0, 14) == "/cloud-uploads") {
             $path = substr($url, 1);
+
             if (is_file($path)) {
-                $oldPath = $path;
+                $this->oldPath = $path;
             }
-        } else if (substr($url, 0, 3) == "://" || substr($url, 0, 8) == "https://" || substr($url, 0, 7) == "http://") {
-            // https://www.outside-image.com/files/201608/1470143491_03.jpg Outside Image
-            $oldPath = $url;
         }
-        $this->oldPath = $oldPath;
     }
 
-    private function getImageNewPath(string $url, string $dir) // $dir="folder/";
+    private function getFileNewPath(string $url, string $dir) // $dir="folder/";
     {
-        $newPath = "";
         if (substr($url, 0, 14) == "/cloud-uploads") {
 
-            $newPath = substr(str_replace("/temp/", "/" . $dir, $url), 1);
-        } else if (substr($url, 0, 3) == "://" || substr($url, 0, 8) == "https://" || substr($url, 0, 7) == "http://") { // https://www.dailyjanakantha.com/files/201608/1470143491_03.jpg
-            $fileName_ar = explode("_", end(explode("/", $url)));
-
-            $timeStamp = (int)array_shift($fileName_ar);
-            $newPath = $this->filePath($dir, $timeStamp, implode("_", $fileName_ar));
+            $this->newPath = substr(str_replace("/temp/", "/" . $dir, $url), 1);
+            $this->newUrl = $this->newPath ? "/" . $this->newPath : "";
         }
-
-        $this->newPath = $newPath;
-        $this->newUrl = $newPath ? "/" . $newPath : "";
     }
 
     public static function filePath(string $dir, int $timeStamp, string $fileName): string
@@ -84,7 +74,7 @@ class FileSave
             $timeStamp = getTime();
         }
 
-        $formattedFileName = str_replace(" ", "-", ConvertString::cleanStrUtf8($fileName, '\da-z\x00-\x1F\x7F-\xFF\ \.'));
+        $formattedFileName = str_replace(" ", "-", ConvertString::cleanStrUtf8($fileName, '\da-zA-Z0-9\x00-\x1F\x7F-\xFF\ \.'));
         $path[0] = $systemDir;
         $path[1] = $systemDir . $dir . date("Ym", $timeStamp) . "/";
         $path[2] = $systemDir . $dir . date("Ym", $timeStamp) . "/" . $timeStamp . "_" . $formattedFileName;
@@ -103,7 +93,7 @@ class FileSave
         return $filePath;
     }
 
-    public static function moveToTrash($filePath)
+    public static function moveToTrash($filePath): bool
     {
         $startingChar = substr($filePath, 0, 1);
         if ($startingChar == "/") {
@@ -119,8 +109,23 @@ class FileSave
         return is_file($filePath) && $newPath ? rename($filePath, $newPath) : false;
     }
 
+    public function getOldUrl(): string
+    {
+        return $this->oldUrl;
+    }
+
     public function getNewUrl(): string
     {
         return $this->newUrl;
+    }
+
+    public function getOldPath(): string
+    {
+        return $this->oldPath;
+    }
+
+    public function getNewPath(): string
+    {
+        return $this->newPath;
     }
 }

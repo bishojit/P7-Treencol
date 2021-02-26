@@ -9,24 +9,22 @@ use PDOException;
 
 class QueryRemoteDb
 {
-    private $host = "";
-    private $username = "";
-    private $password = "";
-    private $dbName = "";
-    private $opt = [
+    private string $host = "";
+    private string $username = "";
+    private string $password = "";
+    private string $dbName = "";
+    private array $opt = [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES => false,
     ];
-    private $error = 1;
-    private $messageAr = [
+    private int $error = 1;
+    private array $messageAr = [
         0 => "Connected",
         1 => "Not Checked",
     ];
-    /**
-     * @var PDO
-     */
-    private $pdo;
+
+    private PDO $pdo;
 
     function __construct(String $host, String $username, String $password, String $db)
     {
@@ -72,7 +70,7 @@ class QueryRemoteDb
         return $this->messageAr[$this->error];
     }
 
-    public function getPdo()
+    public function getPdo(): PDO
     {
         return $this->pdo;
     }

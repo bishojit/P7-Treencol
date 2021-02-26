@@ -6,8 +6,6 @@ namespace Packages\bikiran;
 
 class ConvertArray
 {
-    private static $subValueKey = "sl";
-
     public static function toSet(array $array2d, string $key, bool $filter = false): array
     {
         $out_ar = [];
@@ -76,39 +74,5 @@ class ConvertArray
         }
 
         return $out_all_ar;
-    }
-
-    public static function customSort(array $array2d, array $orderKey_ar): array
-    {
-        $out_all_ar = [];
-
-        if (!is_array($array2d)) {
-            return [];
-        } else if (!is_array($orderKey_ar)) {
-            return [];
-        }
-
-        foreach ($orderKey_ar as $key) {
-            $out_all_ar[$key] = $array2d[$key];
-        }
-
-        return $out_all_ar;
-    }
-
-    public static function sortBySubValueAsc(array $data_all_ar, string $subValueKey): array
-    {
-        self::$subValueKey = $subValueKey;
-
-        usort($data_all_ar, function ($a, $b) {
-            return $a[self::$subValueKey] <=> $b[self::$subValueKey];
-        });
-
-        return $data_all_ar;
-    }
-
-    public static function sortBySubValueDesc(array $data_all_ar, string $subValueKey): array
-    {
-        $data_all_ar = self::sortBySubValueAsc($data_all_ar, $subValueKey);
-        return array_reverse($data_all_ar);
     }
 }

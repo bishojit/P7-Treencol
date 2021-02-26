@@ -6,7 +6,7 @@ namespace Packages\mysql;
 
 class QueryLog
 {
-    private $tokenStr = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789";
+    private string $tokenStr = "AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz0123456789";
 
     private function token($length)
     {
@@ -18,7 +18,7 @@ class QueryLog
         return $token;
     }
 
-    function saveLogQueryError($sqlString, $errorMessage)
+    function saveLogQueryError(string $sqlString, string $errorMessage):void
     {
         $sql_ar = [];
         $creator = getUserSl();

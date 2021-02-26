@@ -4,17 +4,17 @@ namespace Core;
 
 class Route
 {
-    private $AppInit;
-    private $modulesAllAr = [];
-    private $uriOnly = "";
-    private $uriRoute = "";
-    private $uriRouteInfoAr = [];
-    private $uriVariablesAr = [];
+    private AppInit $AppInit;
+    private array $modulesAllAr = [];
+    private string $uriOnly = "";
+    private string $uriRoute = "";
+    private array $uriRouteInfoAr = [];
+    private array $uriVariablesAr = [];
 
-    private $allRoutesAr = [];
-    private $controllerPath = "";
-    private $method = "";
-    private $permAll_ar = [];
+    private array $allRoutesAr = [];
+    private string $controllerPath = "";
+    private string $method = "";
+    private array $permAll_ar = [];
 
     function __construct(AppInit $AppInit)
     {
@@ -92,7 +92,7 @@ class Route
 
         $this->controllerPath = treen_realpath('app/' . $this->uriRouteInfoAr['module'] . '/controllers/' . $this->uriRouteInfoAr['controller'], "/");
         $this->controllerPath = "\\" . str_replace("/", "\\", ucfirst($this->controllerPath));
-        $this->method = $this->uriRouteInfoAr[$this->getUriMethod()];
+        $this->method = $this->uriRouteInfoAr[$this->getUriMethod()] ?: "";
 
         if (!$this->uriRoute) {
 

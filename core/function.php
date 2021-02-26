@@ -57,7 +57,7 @@ function mkUrlWithIndex(int $userIndex, string $uriRoute, array $valuesAr = [], 
     return $Route->mkUrl($userIndex, $uriRoute, $valuesAr, $getsAr, $permittedOnly);
 }
 
-function getDefaultDomain()
+function getDefaultDomain(): string
 {
     global $AppInit;
     return $AppInit->getDefaultDomain();
@@ -90,7 +90,7 @@ function hasUserPermission(string $permission): bool
     return !!$Auth->getDetectedPermissionAr()[$permission];
 }
 
-function getSoftInfo()
+function getSoftInfo(): SimpleXMLElement
 {
     global $SoftInfo;
     return $SoftInfo->getData();
@@ -195,7 +195,7 @@ function assetsJs(string $template): string
     return $jsLink;
 }
 
-function pdo() // do not set any type
+function pdo(): PDO // do not set any type
 {
     global $pdo;
     return $pdo;
@@ -303,4 +303,13 @@ function setPost($name, $val)
 {
     $_POST[$name] = $val;
     return $name;
+}
+
+function date_show(string $format, int $timestamp = null, string $fallBack = "---")
+{
+    if ($timestamp === null) {
+        $timestamp = getTime();
+    }
+
+    return $timestamp ? date($format, $timestamp) : $fallBack;
 }

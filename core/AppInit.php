@@ -6,13 +6,13 @@ namespace Core;
 
 class AppInit
 {
-    private $defaultDomain = "default";
-    private $ipLong = 0;
-    private $uriOnly = "";
-    private $uriMethod = "get";
-    private $queryString = "";
-    private $userIndex = 0;
-    private $domainAr = [];
+    private string $defaultDomain = "default";
+    private int $ipLong = 0;
+    private string $uriOnly = "";
+    private string $uriMethod = "get";
+    private string $queryString = "";
+    private int $userIndex = 0;
+    private array $domainAr = [];
 
     function __construct()
     {
@@ -59,7 +59,7 @@ class AppInit
         $this->uriMethod = strtolower($_SERVER['REQUEST_METHOD']);
 
         //  4. Query String
-        $this->queryString = $_SERVER['QUERY_STRING'];
+        $this->queryString = $_SERVER['QUERY_STRING'] ?: "";
 
         //--Session Control
         if (is_file("configs/access/" . $this->defaultDomain . "/" . $this->defaultDomain . ".session.php")) {

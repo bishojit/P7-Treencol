@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "769387afd4b437acc398050c32f29988",
+    "content-hash": "ba1cc1fabeac7e0f66cc0b1d2fc68f38",
     "packages": [
         {
             "name": "forked/mail_mime-decode",
@@ -347,7 +347,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.3.0",
+        "php": ">=7.4.0",
         "ext-curl": "*",
         "ext-dom": "*",
         "ext-fileinfo": "*",

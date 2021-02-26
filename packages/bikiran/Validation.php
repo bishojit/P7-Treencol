@@ -1,29 +1,23 @@
 <?php
 
-
 namespace Packages\bikiran;
 
-
-use DateTime;
 use Packages\mobile\MobileNumber;
 
 class Validation
 {
+    private int $counting = 0;
+    private array $positionNameAr = [];
+    private array $positionValuesAr = [];
 
-    private $counting = 0;
-    private $positionNameAr = [];
-    private $positionValuesAr = [];
+    private array $messageAr = [];
+    private array $statusAr = [];
 
-    private $messageAr = [];
-    private $statusAr = [];
-    private $doStringAr = [];
+    private array $optionPositionAr = [];
 
-    private $optionPositionAr = [];
-
-    private $validatedStatus;
-    private $validatedMessagesAr;
-    private $validatedDoStringAr;
-    private $validatedStatusAr;
+    private bool $validatedStatus = false;
+    private array $validatedMessagesAr = [];
+    private array $validatedStatusAr = [];
 
     function __construct()
     {
@@ -317,21 +311,6 @@ class Validation
         return $this;
     }
 
-    function chkArray1D($postName, string $message): self
-    {
-        $array = $_POST[$postName];
-        $this->counting((string)$postName, json_encode($array));
-
-        if (!is_array($array)) {
-
-            $this->statusSaving($message, false);
-        } else {
-
-            $this->statusSaving("OK", true);
-        }
-        return $this;
-    }
-
     function chkTrue(string $postName, string $message): self
     {
         $st = (bool)$_POST[$postName];
@@ -348,28 +327,6 @@ class Validation
         return $this;
     }
 
-    function chkAllTrue(string $postName, string $message): self
-    {
-        $st_ar = (array)$_POST[$postName];
-        $this->counting($postName, json_encode($st_ar));
-
-        foreach ($st_ar as $st) {
-            $this->positionValuesAr[$this->counting] = $st;
-
-            if (!$st) {
-
-                $this->statusSaving($message, false);
-                return $this;
-            } else {
-
-                $this->statusSaving("OK", true);
-            }
-        }
-
-        $this->statusSaving("OK", true);
-        return $this;
-    }
-
     function chkFalse(string $postName, string $message): self
     {
         $st = (bool)$_POST[$postName];
@@ -383,27 +340,6 @@ class Validation
             $this->statusSaving("OK", true);
         }
 
-        return $this;
-    }
-
-    function chkAllFalse(string $postName, string $message): self
-    {
-        $st_ar = (array)$_POST[$postName];
-        $this->counting($postName, json_encode($st_ar));
-
-        foreach ($st_ar as $st) {
-            $this->positionValuesAr[$this->counting] = $st;
-
-            if ($st) {
-
-                $this->statusSaving($message, false);
-                return $this;
-            } else {
-                $this->statusSaving("OK", true);
-            }
-        }
-
-        $this->statusSaving("OK", true);
         return $this;
     }
 
@@ -459,18 +395,6 @@ class Validation
         return $this;
     }
 
-    function doString(string $sting): self
-    {
-        $this->doStringAr[$this->counting] = $sting;
-        return $this;
-    }
-
-    function doFocus(string $name): self
-    {
-        $this->doStringAr[$this->counting] = "$(\"[name='$name']\").focus(); ";
-        return $this;
-    }
-
     function validate(): self
     {
         //$args_ar = func_get_args();
@@ -478,7 +402,6 @@ class Validation
 
         //--Set Data
         $this->validatedMessagesAr = $this->messageAr;
-        $this->validatedDoStringAr = $this->doStringAr;
         $this->validatedStatusAr = $this->statusAr;
 
         foreach ($this->statusAr as $countingPosition => $st) {
@@ -488,7 +411,6 @@ class Validation
 
                 //--Reset Data
                 $this->messageAr = [];
-                $this->doStringAr = [];
                 $this->statusAr = [];
 
                 return $this;
@@ -499,7 +421,6 @@ class Validation
 
         //--Reset Data
         $this->messageAr = [];
-        $this->doStringAr = [];
         $this->statusAr = [];
 
         return $this;
@@ -510,61 +431,34 @@ class Validation
         return $this->validatedStatus;
     }
 
-    function getMessage(int $sl): string
-    {
-        return $this->validatedMessagesAr[$sl];
-    }
-
-    function getAllMessage(): array
-    {
-        return $this->validatedMessagesAr;
-    }
-
     function getFirstErrorMessage(): string
     {
         foreach ($this->validatedStatusAr as $sl => $st) {
-            if ($st == 0) {
+            if (!$st) {
                 return $this->validatedMessagesAr[$sl];
             }
         }
         return "";
     }
 
-    function getDoString(int $sl): string
+    function getFirstErrorName(): string
     {
-        return $this->validatedDoStringAr[$sl];
-    }
-
-    function getAllDoString(): array
-    {
-        return $this->validatedDoStringAr;
-    }
-
-    function getFirstErrorDoString(): string
-    {
-        $doString = "";
+        $name = "";
         foreach ($this->validatedStatusAr as $sl => $st) {
-            if ($st == 0) {
-                $doString = $this->validatedDoStringAr[$sl] ?: "";
+            if (!$st) {
+                return $this->positionNameAr[$sl] ?: "";
             }
         }
-        return $doString;
+        return $name;
     }
 
     function getFirstErrorPosition(): int
     {
         foreach ($this->validatedStatusAr as $sl => $st) {
-            if ($st == 0) {
+            if (!$st) {
                 return $sl;
             }
         }
         return -1;
-    }
-
-    public static function isValidDate($date, $format = 'Y-m-d')
-    {
-        $d = DateTime::createFromFormat($format, $date);
-        // The Y ( 4 digits year ) returns TRUE for any integer with any number of digits so changing the comparison from == to === fixes the issue.
-        return $d && $d->format($format) === $date;
     }
 }

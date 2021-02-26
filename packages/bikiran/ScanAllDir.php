@@ -6,9 +6,9 @@ namespace Packages\bikiran;
 
 class ScanAllDir
 {
-    public $path = "";
-    private $fileAr = [];
-    private $dirAr = [];
+    public string $path = "";
+    private array $fileAr = [];
+    private array $dirAr = [];
 
     function __construct($path)
     {

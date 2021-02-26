@@ -6,26 +6,26 @@ namespace Core;
 
 class HeaderMeta
 {
-    private $htmlAr;
-    private $CompatibilityMode = false;
-    private $charset = "utf-8";
-    private $viewport = "width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=1, user-scalable=0";
-    private $keyWords = "";
-    private $pageDescription = "";
-    private $pageTitle = "";
-    private $siteName = "";
-    private $type = "";
-    private $pageUrl = "";
-    private $imageUrl = "/assets/images/site-image.php"; // Default Image
-    private $imageWidth = "";
-    private $imageHeight = "";
-    private $appId = "";
-    private $feedUrl = "";
-    private $twitterCard = "";
-    private $twitterCreator = "";
-    private $febIconUrl = "";
-    private $pageId = "";
-    private $analyticsId = "";
+    private array $htmlAr = [];
+    private bool $CompatibilityMode = false;
+    private string $charset = "utf-8";
+    private string $viewport = "width=device-width, minimum-scale=1, initial-scale=1, maximum-scale=1, user-scalable=0";
+    private string $keyWords = "";
+    private string $pageDescription = "";
+    private string $pageTitle = "";
+    private string $siteName = "";
+    private string $type = "";
+    private string $pageUrl = "";
+    private string $imageUrl = "/assets/images/site-image.php"; // Default Image
+    private string $imageWidth = "";
+    private string $imageHeight = "";
+    private string $appId = "";
+    private string $feedUrl = "";
+    private string $twitterCard = "";
+    private string $twitterCreator = "";
+    private string $febIconUrl = "";
+    private string $pageId = "";
+    private string $analyticsId = "";
 
     public function __construct()
     {
@@ -222,7 +222,7 @@ class HeaderMeta
     public function getFullTitle($glue = " || "): string
     {
         return implode($glue, array_filter([
-            $this->siteName,
+            //$this->siteName,
             $this->pageTitle
         ]));
     }

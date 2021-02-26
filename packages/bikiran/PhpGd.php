@@ -8,7 +8,6 @@ class PhpGd
 {
     static public function showHtmlImage($imgRes)
     {
-
         // start buffering
         ob_start();
         imagepng($imgRes);

@@ -30,8 +30,8 @@ class TreenModules
             mkdir(realpath($path) . "/views", 0777, true);
 
             copy("configs/samples/routes.xml", realpath($path) . "/routes.xml");
-            $TreenProcess->display("'$path' module Created.", "green");
-            $TreenProcess->display("Please update 'app/app-config.xml'", "blue");
+            $TreenProcess->display("'{$moduleName}' module Created on 'app' Directory.", "blue");
+            $TreenProcess->display("Please add '<modules dir=\"{$moduleName}\" priority=\"1\" preRoutes=\"{$moduleName}\" status=\"1\" title=\"{$moduleName}\"/>' this line to 'app/app-config.xml'", "blue");
         }
     }
 }

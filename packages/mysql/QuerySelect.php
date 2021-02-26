@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Packages\mysql;
-
 
 use PDO;
 use PDOException;
@@ -10,27 +8,26 @@ use PDOException;
 class QuerySelect
 {
 
-    private $table = "";
-    private $pdo;
-    private $indexColumn = "sl";
-    private $creatorColumn = null;
-    private $deletedColumn = "time_deleted";
-    private $error = 1;
-    private $message = "Not Pulled";
-    private $indexValueAr = []; // 2nd Priority  // 1st Priority is $sl on pull
-    private $queryString = "";
-    private $rowAllAr = [];
-    private $selectTblCols = "*";
+    private string $table = "";
+    private PDO $pdo;
+    private string $indexColumn = "sl";
+    private ?string $creatorColumn = null;
+    private string $deletedColumn = "time_deleted";
+    private int $error = 1;
+    private string $message = "Not Pulled";
+    private array $indexValueAr = []; // 2nd Priority  // 1st Priority is $sl on pull
+    private string $queryString = "";
+    private array $rowAllAr = [];
+    private string $selectTblCols = "*";
 
-    private $cacheFilePath = "";
-    private $cacheDuration = 0;
-    private $QueryCache = "";
-    private $cacheChecksumQuery = "";
+    private string $cacheFilePath = "";
+    private int $cacheDuration = 0;
+    private string $cacheChecksumQuery = "";
 
-    private $isCacheValid = false;
-    private $errorRecords = true;
-    private $itemInPage = 0;
-    private $pageNumber = 0;
+    private bool $isCacheValid = false;
+    private bool $errorRecords = true;
+    private int $itemInPage = 0;
+    private int $pageNumber = 0;
 
     public function __construct($table = "")
     {
@@ -39,7 +36,7 @@ class QuerySelect
         return $this;
     }
 
-    function setRemoteDB(string $host, string $userName, string $password, string $dbName, array $opt = []): QuerySelect
+    function setRemoteDB(string $host, string $userName, string $password, string $dbName, array $opt = []): self
     {
         if (empty($opt)) {
             $opt = [
@@ -58,34 +55,34 @@ class QuerySelect
 
         $this->pdo = $pdo;
         $this->errorRecords = false;
-        $this->deletedColumn = null;
+        $this->deletedColumn = "";
         return $this;
     }
 
-    function setDeletedColumn($colName): QuerySelect
+    function setDeletedColumn($colName): self
     {
         $this->deletedColumn = $colName;
         return $this;
     }
 
-    public function enableFileCache(string $filePath, int $duration, bool $isChecksumQuery = true): QuerySelect
+    public function enableFileCache(string $filePath, int $duration, bool $isChecksumQuery = true): self
     {
         $this->cacheFilePath = $filePath;
         $this->cacheDuration = $duration;
         $this->cacheChecksumQuery = $isChecksumQuery;
-        $this->QueryCache = new QueryCache($filePath, $duration);
+        $QueryCache = new QueryCache($filePath, $duration);
 
-        $this->isCacheValid = !$this->QueryCache->getIsDataRequired();
+        $this->isCacheValid = !$QueryCache->getIsDataRequired();
         return $this;
     }
 
-    public function setCreatorColumn(string $creatorColumn = "creator"): QuerySelect
+    public function setCreatorColumn(string $creatorColumn = "creator"): self
     {
         $this->creatorColumn = $creatorColumn;
         return $this;
     }
 
-    public function setQueryString(string $queryString = ""): QuerySelect
+    public function setQueryString(string $queryString = ""): self
     {
         $this->queryString = $queryString;
         return $this;
@@ -97,7 +94,7 @@ class QuerySelect
         $this->pageNumber = $pageNumber;
     }
 
-    private function pullDataCollect(): QuerySelect
+    private function pullDataCollect(): self
     {
         if (!strpos(strtolower($this->queryString), "where")) {
             $this->error = 3;
@@ -126,7 +123,7 @@ class QuerySelect
         return $this;
     }
 
-    private function queryMixer(): QuerySelect
+    private function queryMixer(): self
     {
         $extQuery = [];
         if ($this->creatorColumn !== null) {

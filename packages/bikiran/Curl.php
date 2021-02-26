@@ -6,7 +6,7 @@ namespace Packages\bikiran;
 
 class Curl
 {
-    function getContent($url, string $uriMethod = "POST", $post_ar = []): string // Get Method List from POSTMAN
+    static function getContent($url, string $uriMethod = "POST", $post_ar = []): string // Get Method List from POSTMAN
     {
 
         //--Sending to PC Detecting Server

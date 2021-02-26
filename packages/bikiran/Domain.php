@@ -6,7 +6,7 @@ namespace Packages\bikiran;
 
 class Domain
 {
-    private $url = "";
+    private string $url = "";
 
     function __construct(string $url)
     {

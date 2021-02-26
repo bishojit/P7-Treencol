@@ -1,20 +1,18 @@
 <?php
 
-
 namespace Packages\mobile;
-
 
 class MobileSmsSize
 {
-    private $charSet = "";
-    private $unitSizeAr = [
+    private string $charSet = "";
+    private array $unitSizeAr = [
         'ASCII' => 160,
         'UTF-8' => 70,
     ];
-    private $joinSize = 3;
-    private $smsSize = 0;
-    private $textLength = 0;
-    private $remainCharSize = 0;
+    private int $joinSize = 3;
+    private int $smsSize = 0;
+    private int $textLength = 0;
+    private int $remainCharSize = 0;
 
     function __construct($smsText)
     {
@@ -22,22 +20,22 @@ class MobileSmsSize
         $this->smsSize = $this->calcSmsSize($smsText);
     }
 
-    function getSize()
+    function getSize(): int
     {
         return $this->smsSize;
     }
 
-    function getCharSet()
+    function getCharSet(): string
     {
         return $this->charSet;
     }
 
-    function getRemainChar()
+    function getRemainChar(): int
     {
         return $this->remainCharSize;
     }
 
-    public function getTextLength()
+    public function getTextLength(): int
     {
         return $this->textLength;
     }

@@ -6,24 +6,24 @@ namespace Packages\treen;
 
 class TreenProcess
 {
-    private $failed_ar = [];
-    private $success_ar = [];
-    private $TreenColors;
-    private $unWantedAr = [
+    private array $failed_ar = [];
+    private array $success_ar = [];
+    private TreenColors $TreenColors;
+    private array $unWantedAr = [
         'core/Test.php',
         'core/TreenColors.php',
         'core/TreenProcess.php',
         'packages/bikiran/Event.php',
     ];
 
-    private $appFilesAr = [
-        'app/system/views-default/error_config_html.php',
-        'app/system/views-default/error_login_html.php',
-        'app/system/views-default/error_method_html.php',
-        'app/system/views-default/error_page_html.php',
+    private array $appFilesAr = [
+        'app/_defaults/default_pages/error_config_html.php',
+        'app/_defaults/default_pages/error_login_html.php',
+        'app/_defaults/default_pages/error_method_html.php',
+        'app/_defaults/default_pages/error_page_html.php',
     ];
 
-    private $configFilesAr = [
+    private array $configFilesAr = [
         'configs/domain-mapping.xml',
         'configs/history-disable.xml',
         'configs/system-defaults.xml',
@@ -154,7 +154,7 @@ EOF;
         $data = $this->curlGetData(__MOTHER_LINK__ . "?listPath=" . $dirPath);
         if ($data) {
             $this->success_ar[] = $dirPath;
-            $this->display("List Loaded Success (" . $dirPath . ")", "green");
+            $this->display("List Loaded Success (" . $dirPath . ")", "blue");
         } else {
             $this->failed_ar[] = $dirPath;
             $this->display("List Loaded Failed (" . $dirPath . ")", "red", "black");
@@ -182,13 +182,13 @@ EOF;
         if ($code) {
             if (!is_file($filePath)) {
                 $this->file_put_contents_force($filePath, $code);
-                $this->display("Created ($filePath) [New File]", "green");
+                $this->display("Created ($filePath) [New File]", "blue");
             } else {
                 if (md5($code) != md5(file_get_contents($filePath))) {
                     $this->file_put_contents_force($filePath, $code);
                     $this->display("Replaced ($filePath) [File Updated]", "blue");
                 } else {
-                    $this->display("Skipped ($filePath) [No Change]", "purple");
+                    $this->display("Skipped ($filePath) [No Change]", "blue");
                 }
             }
         }
@@ -234,7 +234,7 @@ EOF;
             if (!file_exists($filePath)) {
                 $this->filePath($filePath);
             } else {
-                $this->display("Skipped ($filePath) [No Change]", "purple");
+                $this->display("Skipped ($filePath) [No Change]", "blue");
             }
         }
     }
@@ -246,7 +246,7 @@ EOF;
             if (!file_exists($filePath)) {
                 $this->filePath($filePath);
             } else {
-                $this->display("Skipped ($filePath) [No Change]", "purple");
+                $this->display("Skipped ($filePath) [No Change]", "blue");
             }
         }
     }
@@ -273,7 +273,7 @@ EOF;
                 $lines_ar = $remoteGitIgnore_ar + $localGitIgnore_ar;
                 $this->file_put_contents_force(".gitignore", implode("\n", array_keys($lines_ar)));
 
-                $this->display("Created ($filePath) [New File]", "green");
+                $this->display("Created ($filePath) [New File]", "blue");
             } else {
                 if (md5($gitIgnoreRemoteData) != md5(file_get_contents($filePath))) {
                     $lines_ar = $remoteGitIgnore_ar + $localGitIgnore_ar;
@@ -281,7 +281,7 @@ EOF;
 
                     $this->display("Replaced ($filePath) [File Updated]", "blue");
                 } else {
-                    $this->display("Skipped ($filePath) [No Change]", "purple");
+                    $this->display("Skipped ($filePath) [No Change]", "blue");
                 }
             }
         }

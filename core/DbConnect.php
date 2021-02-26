@@ -7,17 +7,17 @@ use PDOException;
 
 class DbConnect
 {
-    private $host = 'localhost';
-    private $username = 'root';
-    private $password = '';
-    private $db = '';
-    private $charset = 'utf8mb4';
-    private $opt = [
+    private string $host = 'localhost';
+    private string $username = 'root';
+    private string $password = '';
+    private string $db = '';
+    private string $charset = 'utf8mb4';
+    private array $opt = [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         PDO::ATTR_EMULATE_PREPARES => false,
     ];
-    private $AppInit;
+    private AppInit $AppInit;
 
     public function __construct(AppInit $AppInit)
     {
@@ -43,6 +43,7 @@ class DbConnect
                 $this->opt
             );
         } catch (PDOException $e) {
+            dd($e);
 
             ErrorPages::DbConnect(1, "Not Connected-" . $this->host . " (" . $this->AppInit->getDefaultDomain() . ")");
             exit();

@@ -7,15 +7,15 @@ namespace Packages\mysql;
 class QueryCache
 {
 
-    private $cachePath = "";
-    private $jsonDataAllAr = [];
-    private $cacheValidity = 600; // 10 min
-    private $time = 0;
-    private $timeValidated = 0;
-    private $query = "";
-    private $checksumQuery = "";
+    private string $cachePath = "";
+    private array $jsonDataAllAr = [];
+    private int $cacheValidity = 600; // 10 min
+    private int $time = 0;
+    private int $timeValidated = 0;
+    private string $query = "";
+    private string $checksumQuery = "";
 
-    function __construct(string $filePath, int $cacheValidity, string $query = null)
+    function __construct(string $filePath, int $cacheValidity, string $query = "")
     {
         $this->cacheValidity = $cacheValidity;
         $this->time = getTime();
@@ -45,7 +45,7 @@ class QueryCache
         return false;
     }
 
-    function setData(array $data): QueryCache
+    function setData(array $data): self
     {
         $this->jsonDataAllAr['time_created'] = $this->time;
         $this->jsonDataAllAr['seconds_validate'] = $this->cacheValidity;

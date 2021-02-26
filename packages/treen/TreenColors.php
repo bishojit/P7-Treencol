@@ -6,8 +6,8 @@ namespace Packages\treen;
 
 class TreenColors
 {
-    private $foreground_colors = array();
-    private $background_colors = array();
+    private array $foreground_colors = [];
+    private array $background_colors = [];
 
     public function __construct()
     {

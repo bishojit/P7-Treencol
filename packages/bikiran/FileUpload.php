@@ -1,46 +1,44 @@
 <?php
 
-
 namespace Packages\bikiran;
-
 
 class FileUpload
 {
-    private $fileName = "";
-    private $formattedFileName = "";
-    private $fileType = "";
-    private $fileSize = 0;
-    private $fileTempPath = "";
-    private $fileUploadedPath = "";
-    private $fileError = 0;
+    private string $fileName = "";
+    private string $formattedFileName = "";
+    private string $fileType = "";
+    private int $fileSize = 0;
+    private string $fileTempPath = "";
+    private string $fileUploadedPath = "";
+    private int $fileError = 0;
 
-    private $maxFileSize = 0;
-    private $minFileSize = 0;
+    private int $maxFileSize = 0;
+    private int $minFileSize = 0;
 
-    private $allowedExtension_ar = [];
-    private $allowedFormat_ar = [];
+    private array $allowedExtension_ar = [];
+    private array $allowedFormat_ar = [];
 
-    private $error = 1;
-    private $errorMessages_ar = [
+    private int $error = 1;
+    private array $errorMessages_ar = [
         0 => "No Error",
         1 => "No Action",
     ];
-    private $uploadSt = false;
+    private bool $uploadSt = false;
 
-    public function __construct($uploadedFileInfo_ar)
+    public function __construct($uploadInfo_ar)
     {
-        $this->fileName = $uploadedFileInfo_ar['name'];
-        $this->fileType = $uploadedFileInfo_ar['type'];
-        $this->fileSize = $uploadedFileInfo_ar['size'];
-        $this->fileTempPath = $uploadedFileInfo_ar['tmp_name'];
-        $this->fileError = $uploadedFileInfo_ar['error'];
+        $this->fileName = $uploadInfo_ar['name'];
+        $this->fileType = $uploadInfo_ar['type'];
+        $this->fileSize = $uploadInfo_ar['size'];
+        $this->fileTempPath = $uploadInfo_ar['tmp_name'];
+        $this->fileError = $uploadInfo_ar['error'];
 
         $this->formatName();
     }
 
     public function formatName(): void
     {
-        $this->formattedFileName = str_replace(" ", "-", ConvertString::cleanStrUtf8($this->fileName, '\da-zA-Z\x00-\x1F\x7F-\xFF\ \.'));
+        $this->formattedFileName = str_replace(" ", "-", ConvertString::cleanStrUtf8($this->fileName, '/[^\da-z\x00-\x1F\x7F-\xFF\ \.]/i'));
     }
 
     public function setMinSize(int $minFileSize = 0): void // 0=no limit
@@ -110,7 +108,6 @@ class FileUpload
             $path[0] = $systemDir;
             $path[1] = $systemDir . $uploadDir . date("Ym", getTime()) . "/";
             $path[2] = $systemDir . $uploadDir . date("Ym", getTime()) . "/" . getTime() . "_" . $this->formattedFileName;
-
 
             //--Creating DIR if not exist
             if (!is_dir($path[1])) {

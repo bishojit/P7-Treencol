@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Core;
 
 use Packages\bikiran\Generate;
@@ -10,133 +9,125 @@ use Packages\mysql\QueryUpdate;
 
 class Users
 {
-    private $error = 1;
-    private $message = "Not Pulled";
-    private $tfa_all_ar = [];
-    private $userSl = 0;
+    private int $stayTime = 30 * 24 * 3600;
+    private int $error = 1;
+    private string $message = "Not Pulled";
+    private int $userSl = 0;
+    private array $userInfoAr = [];
+    private string $password;
+    private int $logSl = 0;
+    private string $loginBy = "";
+    private bool $isValidationSuccess = false;
+    private bool $isSessionCreated = false;
 
-    private function setLoginSession(array $userInfo_ar, string $loginBy = "default_email"): void
+    private string $uniqueKey = "";
+    private string $tempKey = "";
+
+    function __construct($loginBy, $userInfoAr, $password)
     {
-        $sl = $userInfo_ar['sl'];
-        $insertLog = new QueryInsert('log_login');
-        $insertLog->addRow([
-            'user_sl' => $userInfo_ar['sl'],
-            'login_by' => $loginBy,
-            'unique_key' => "",
-        ]);
-        $insertLog->push();
+        $this->loginBy = $loginBy;
+        $this->userInfoAr = $userInfoAr;
+        $this->password = md5($password);
+        $this->userSl = $this->userInfoAr['sl'] ?: 0;
 
-        // do not change Below lines
-        $_SESSION['user_sl_ar'][$sl] = $sl;
-        $_SESSION['login_sl_ar'][$sl] = $insertLog->getLastInsertedId();
-
-        $this->error = 0;
-        $this->message = "Login Success";
+        $this->uniqueKey = Generate::token(32);
+        $this->tempKey = Generate::token(32);
     }
 
-    function loginProcess($userInfo_ar, $password, $loginBy, $tfaType, $tfaCode, $tfaRemember = true): Users
+    private function infoValidation(): self
     {
-        $this->userSl = $userInfo_ar['sl'];
-
-        if (!$userInfo_ar) {
+        if (!$this->userSl) {
             $this->error = 2;
             $this->message = "Username or password not match";
-        } else if ($userInfo_ar['status'] != "active") {
+            $this->isValidationSuccess = false;
+            return $this;
+        }
+
+        if ($this->userInfoAr['status'] != "active") {
             $this->error = 3;
             $this->message = "Username or password not match";
-        } else if ($userInfo_ar['login_password'] != md5($password)) {
+            $this->isValidationSuccess = false;
+            return $this;
+        }
+
+        if ($this->userInfoAr['login_password'] != $this->password) {
             $this->error = 4;
             $this->message = "Username or password not match";
-        } else {
+            $this->isValidationSuccess = false;
+            return $this;
+        }
 
-            //--Collect 2FA Data
-            $select = new QuerySelect("system_users_tfa");
-            $select->setQueryString("
-            SELECT `sl`,
-                   `user_sl`,
-                   `type` 
-            FROM `system_users_tfa` 
-            WHERE `user_sl`=" . quote($userInfo_ar['sl']) . " 
-                AND `status`='enable'
-            ");
-            $select->pull();
-            $this->tfa_all_ar = $select->getRows('type');
+        //$this->error = 0;
+        $this->message = "Info Validation Success";
+        $this->isValidationSuccess = true;
+        return $this;
+    }
 
-            if (empty($this->tfa_all_ar)) { // If 2FA is Disabled
+    private function setLoginSession(): self
+    {
+        if ($this->isValidationSuccess == true) {
+            // do not change Below lines
+            $_SESSION['user_sl_ar'][$this->userSl] = $this->userSl;
 
-                $this->setLoginSession($userInfo_ar, $loginBy);
-            } else if (md5($_COOKIE['tfa_key_' . $userInfo_ar['sl']] . ":" . $_COOKIE['tfa_time_' . $userInfo_ar['sl']]) == $userInfo_ar['skip_tfa_code']) { // If 2FA is Able to Skipped
-
-                $this->setLoginSession($userInfo_ar);
-            } else { // If 2FA is Enabled
-
-                if ($tfaType && !$tfaCode) {
-
-                    $this->error = 5;
-                    $this->message = "Please Enter Verification Code";
-                } else if ($tfaType && $_SESSION['tfa_code'] != $tfaCode) {
-
-                    $this->error = 6;
-                    $this->message = "Invalid Verification Code";
-                } else if ($tfaType && $tfaCode) {
-
-                    $token = (new Generate)->token(10);
-
-                    if ($tfaRemember == true) {
-                        setcookie('tfa_key_' . $userInfo_ar['sl'], $key = md5($token), getTime() + 30 * 24 * 3600);
-                        setcookie('tfa_time_' . $userInfo_ar['sl'], $keyTime = getTime(), getTime() + 30 * 24 * 3600);
-
-                        //--Insert
-                        $update = new QueryUpdate("system_users");
-                        $update->updateRow($userInfo_ar['sl'], [
-                            'skip_tfa_code' => md5($key . ":" . $keyTime),
-                        ]);
-                        $update->push();
-                    }
-
-                    $this->setLoginSession($userInfo_ar);
-                } else {
-                    $_SESSION['system_pre_logged_in_sl'] = $userInfo_ar['sl'];
-
-                    $this->error = 7;
-                    $this->message = "Please verify 2FA Process";
-                }
+            $this->error = 0;
+            $this->message = "Login Success";
+            if ($_SESSION['user_sl_ar'][$this->userSl] == $this->userSl) {
+                $this->isSessionCreated = true;
             }
         }
+        return $this;
+    }
+
+    private function createLoginLog(): self
+    {
+        if ($this->isSessionCreated == true) {
+            $insertLog = new QueryInsert('system_users_login');
+            $insertLog->addRow([
+                'user_sl' => $this->userSl,
+                'login_by' => $this->loginBy,
+                'unique_key' => $this->uniqueKey,
+                'temp_key' => $this->tempKey,
+                'time_expired' => getTime() + $this->stayTime,
+                'user_agent' => $_SERVER['HTTP_USER_AGENT'],
+                //'time_logout' => "",
+                //'company_sl' => "",
+                'checksum_browser' => self::generateBrowserChecksum(),
+                //'checksum_header' => "",
+            ]);
+            $insertLog->push();
+            $logSl = $insertLog->getLastInsertedId();
+
+            $_SESSION['login_sl_ar'][$this->userSl] = $logSl;
+            $this->logSl = $logSl;
+        }
+        return $this;
+    }
+
+    function logInProcess(): self
+    {
+        $this->infoValidation();
+        $this->setLoginSession();
+        $this->createLoginLog();
 
         return $this;
     }
 
-    function logOut(array $userInfo_ar = []): Users
+    static function logOutProcess(): array
     {
         //--Select
-        $select = new QuerySelect("log_login");
+        $select = new QuerySelect("system_users_login");
         $select->setQueryString("
         SELECT * 
-        FROM `log_login` 
-        WHERE " . quoteForIn('sl', $_SESSION['login_sl_ar'] ?: [])."
+        FROM `system_users_login` 
+        WHERE " . quoteForIn('sl', $_SESSION['login_sl_ar'] ?: []) . "
         ");
         $select->pull();
         $login_all_ar = $select->getRows('user_sl');
 
         $countRow = 0;
-        $update = new QueryUpdate('log_login');
+        $update = new QueryUpdate('system_users_login');
         $update->setAuthorized();
-        if (empty($userInfo_ar)) {
-
-            foreach ($_SESSION['user_sl_ar']?:[] as $userSl) {
-                unset($_SESSION['user_sl_ar'][$userSl]);
-                unset($_SESSION['login_sl_ar'][$userSl]);
-
-                if ($login_all_ar[$userSl]) {
-                    $update->updateRow($login_all_ar[$userSl], [
-                        'time_logout' => getTime()
-                    ]);
-                    $countRow++;
-                }
-            }
-        } else {
-            $userSl = $userInfo_ar['sl'];
+        foreach ($_SESSION['user_sl_ar'] ?: [] as $userSl) {
             unset($_SESSION['user_sl_ar'][$userSl]);
             unset($_SESSION['login_sl_ar'][$userSl]);
 
@@ -147,12 +138,41 @@ class Users
                 $countRow++;
             }
         }
-
         if ($countRow) {
             $update->push();
         }
 
-        return $this;
+        return [
+            'error' => 0,
+            'message' => "Logged out"
+        ];
+    }
+
+    static function tokenUpdate($logSl, $uniqueKey, $tempKey)
+    {
+        //--Select
+        $select = new QuerySelect("system_users_login");
+        $select->setQueryString("
+        SELECT * 
+        FROM `system_users_login` 
+        WHERE `sl`=" . quote($logSl) . "
+        ");
+        $select->pull();
+        $loginInfo_ar = $select->getRow();
+
+        if ($loginInfo_ar['sl']) {
+
+            $update = new QueryUpdate('system_users_login');
+            $update->setAuthorized();
+            $update->updateRow($loginInfo_ar, [
+                'time_logout' => getTime()
+            ]);
+        }
+    }
+
+    static function generateBrowserChecksum()
+    {
+        return md5($_SERVER['HTTP_USER_AGENT']);
     }
 
     public function getError(): int
@@ -182,5 +202,14 @@ class Users
             }
         }
         return -1;
+    }
+
+    public function getLogInfo(): array
+    {
+        return [
+            'log_sl' => $this->logSl,
+            'unique_key' => $this->uniqueKey,
+            'temp_key' => $this->tempKey,
+        ];
     }
 }

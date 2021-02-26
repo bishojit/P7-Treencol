@@ -4,8 +4,7 @@ namespace Packages\bikiran;
 
 class ConvertString
 {
-
-    static function en2bn(string $in): string
+    public static function en2bn(string $in): string
     {
         $ar1 = array('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'AM', 'PM', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December', 'Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday');
         $ar2 = array('০', '১', '২', '৩', '৪', '৫', '৬', '৭', '৮', '৯', 'এ. এম.', 'পি. এম.', 'জানুয়ারী', 'ফেব্রুয়ারী', 'মার্চ', 'এপ্রিল', 'মে', 'জুন', 'জুলাই', 'আগস্ট', 'সেপ্টেম্বর', 'অক্টোবর', 'নভেম্বর', 'ডিসেম্বর', 'শনিবার', 'রবিবার', 'সোমবার', 'মঙ্গলবার', 'বুধবার', 'বৃহস্পতিবার', 'শুক্রবার');
@@ -131,7 +130,7 @@ class ConvertString
         if ($acceptedPattern == null) {
             $string = preg_replace('/[^\da-z ]/i', '', $string);
         } else {
-            $string = preg_replace('/[^' . $acceptedPattern . ']/', ' ', $string);
+            $string = preg_replace($acceptedPattern, ' ', $string);
         }
 
         $string = preg_replace('/\s+/', ' ', $string);
@@ -144,7 +143,7 @@ class ConvertString
         if ($acceptedPattern == null) {
             $string = preg_replace('/[^\da-z\x00-\x1F\x7F-\xFF\ ]/i', ' ', $string);
         } else {
-            $string = preg_replace('/[^' . $acceptedPattern . ']/', ' ', $string);
+            $string = preg_replace($acceptedPattern, ' ', $string);
         }
 
         $string = preg_replace('/\s+/', ' ', $string);
@@ -152,7 +151,7 @@ class ConvertString
         return trim($string);
     }
 
-    static function wordSplit(string $paragraph, int $start, int $number, string $ending = '...')
+    public static function wordSplit(string $paragraph, int $start, int $number, string $ending = '...'): string
     {
         $in_ar = explode(" ", strip_tags($paragraph));
         $in2_ar = array_filter(array_slice($in_ar, $start, $number));
@@ -210,7 +209,7 @@ class ConvertString
         return isset($m[0]) ? $m[0] : [];
     }
 
-    public static function tinyFilter(String $text)
+    public static function tinyFilter(string $text)
     {
         $filter_ar = [
             "\n" => " ",

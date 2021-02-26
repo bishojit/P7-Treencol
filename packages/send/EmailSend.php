@@ -78,7 +78,6 @@ class EmailSend
             //Recipients
             $this->mail->setFrom($this->FromEmail, $this->FromName);
             $this->mail->addReplyTo($this->ReplyToEmail, $this->ReplyToName);
-
             // Content
             $this->mail->isHTML(true);                                  // Set email format to HTML
             $this->mail->Subject = $this->EmailTemplates->getSubject();
@@ -121,6 +120,7 @@ class EmailSend
         ");
         $select->pull();
         $Info_ar = $select->getRow();
+        $sub=$Info_ar['subject'];
         $parameters_ar = json_decode($Info_ar['parameters_json'], true) ?: [];
 
         //--Data Mixing
@@ -134,7 +134,7 @@ class EmailSend
             $this->EmailTemplates->setTemplatePath(str_replace("{domain}", getDefaultDomain(), $Info_ar['template_path']));
         }
         $this->PHPMailer()->addAddress($Info_ar['receiver_contact']);
-        $this->EmailTemplates()->setSubject($Info_ar['subject']);
+        $this->EmailTemplates()->setSubject($sub);
         $this->EmailTemplates()->addValueAr($parameters_ar);
         $this->send();
 

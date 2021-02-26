@@ -8,8 +8,8 @@ use DateTimeZone;
 
 class TimeZone
 {
-    private $listOfTimeZone = [];
-    private $time = 0;
+    private array $listOfTimeZone = [];
+    private int $time = 0;
 
     function __construct()
     {

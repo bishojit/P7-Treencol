@@ -70,6 +70,6 @@ class EmailTemplates
 
     public function getSubject(): string
     {
-        return $this->subject;
+        return $this->valuesAllAr['subject'];
     }
 }

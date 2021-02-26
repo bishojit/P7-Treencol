@@ -4,10 +4,10 @@ namespace Packages\mobile;
 
 class MobileNumber
 {
-    private $countryCode = "";
-    private $operatorsAllAr = [];
-    private $mobileNumberAr = [];
-    private $mobileRawAr = [];
+    private string $countryCode = "";
+    private array $operatorsAllAr = [];
+    private array $mobileNumberAr = [];
+    private array $mobileRawAr = [];
 
     function __construct(string $countryCode) // 880
     {
@@ -97,12 +97,12 @@ class MobileNumber
         return $this;
     }
 
-    public function getNumbers()
+    public function getNumbers(): array
     {
         return $this->mobileNumberAr;
     }
 
-    public function getNumbersRawAr()
+    public function getNumbersRawAr(): array
     {
         return $this->mobileRawAr;
     }

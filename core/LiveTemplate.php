@@ -8,10 +8,10 @@ use DOMDocument;
 
 class LiveTemplate
 {
-    private $modulesAllAr = [];
-    private $allTemplatesAr = [];
-    private $htmlAr = [];
-    private $jsAr = [];
+    private array $modulesAllAr = [];
+    private array $allTemplatesAr = [];
+    private array $htmlAr = [];
+    private array $jsAr = [];
 
     function __construct()
     {

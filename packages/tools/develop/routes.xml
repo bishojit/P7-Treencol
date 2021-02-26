@@ -1,4 +1,11 @@
 <resources>
+    <controller val="DevelopSqlErrors" pageTitle="Develop SQL Errors" validationToken="false" auth="true">
+
+        <route val="sql-errors/{groupToken}/make-resolved" post="makeResolved"/>
+        <route val="sql-errors/{groupToken}/error-details" post="errorDetails"/>
+        <route val="sql-errors" get="sqlErrors"/>
+    </controller>
+
     <controller val="DevelopRoute" pageTitle="Develop Route" validationToken="false" auth="true">
 
         <route val="routes" get="routeList"/>
@@ -12,5 +19,10 @@
     <controller val="DevelopDbCompare" pageTitle="Db Compare" validationToken="false" auth="true">
 
         <route val="db-compare" get="dbCompare" post="dbComparePost"/>
+    </controller>
+
+    <controller val="DevelopIndex" pageTitle="Develop Index" validationToken="false" auth="true">
+
+        <route val="/" get="indexOfDevelop"/>
     </controller>
 </resources>

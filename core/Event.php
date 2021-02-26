@@ -6,7 +6,7 @@ namespace Core;
 
 class Event
 {
-    private static $events = [];
+    private static array $events = [];
 
     public static function listen($name, $callback)
     {

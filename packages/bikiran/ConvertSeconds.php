@@ -6,7 +6,7 @@ namespace Packages\bikiran;
 
 class ConvertSeconds
 {
-    public static function toHumanDuration(int $seconds): string
+    public static function toHumanDuration(int $seconds, int $length = 2): string
     {
         $out_ar = [];
 
@@ -46,6 +46,6 @@ class ConvertSeconds
             $out_ar[] = "$secondRemain Second";
         }
 
-        return implode(", ", array_splice($out_ar, 0, 2));
+        return implode(", ", array_splice($out_ar, 0, $length));
     }
 }

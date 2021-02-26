@@ -1,6 +1,6 @@
 {
-  "version": "620",
-  "name": "treencol/treen6",
+  "version": "701",
+  "name": "treencol/treen7",
   "authors": [
     {
       "name": "Kumar Bishojit Paul",
@@ -8,7 +8,7 @@
     }
   ],
   "require": {
-    "php": ">=7.3.0",
+    "php": ">=7.4.0",
     "ext-curl": "*",
     "ext-dom": "*",
     "ext-fileinfo": "*",
@@ -19,7 +19,7 @@
     "ext-mysqli": "*",
     "ext-PDO": "*",
     "ext-simplexml": "*",
-    "forked/mailreader": "^1.0"
+    "forked/mailreader": "^1.0.1"
   },
   "autoload": {
     "psr-4": {

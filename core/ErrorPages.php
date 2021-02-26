@@ -6,7 +6,7 @@ namespace Core;
 
 class ErrorPages
 {
-    private static $errorsAr = [
+    private static array $errorsAr = [
         "AppInit" => 11,
         "Route" => 12,
         "RouteUrl" => 12,
@@ -17,13 +17,13 @@ class ErrorPages
         "func" => 17,
     ];
 
-    private static $layoutAr = [
+    private static array $layoutAr = [
         "AppInit" => "error_config_html.php",
         "Route" => "error_config_html.php",
         "RouteUrl" => "error_page_html.php", // page not found
         "DbConnect" => "error_config_html.php",
         "TimeZone" => "error_config_html.php",
-        "Auth" => "error_permission_html.php", // permission error [theme page]
+        "Auth" => "error_page_html.php", // permission error [theme page]
         "Method" => "error_method_html.php", // method error [theme page]
         "func" => "error_config_html.php",
     ];
@@ -35,7 +35,7 @@ class ErrorPages
 
     private static function view(string $func, array $val_ar = [])
     {
-        $layoutPath = "/app/system/views-default/" . self::$layoutAr[$func];
+        $layoutPath = "/app/_defaults/default_pages/" . self::$layoutAr[$func];
 
         //--Check Method
         global $AppInit;
