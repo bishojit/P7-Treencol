@@ -1,6 +1,6 @@
 <resources>
     <host>localhost</host>
-    <username>root</username>
-    <password>mysql</password>
-    <db>p1004_ngo_directory</db>
+    <username>db_username</username>
+    <password>db#password</password>
+    <db>bd_name</db>
 </resources>

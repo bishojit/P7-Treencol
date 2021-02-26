@@ -43,7 +43,7 @@ class DbConnect
                 $this->opt
             );
         } catch (PDOException $e) {
-            dd($e);
+            dc($e);
 
             ErrorPages::DbConnect(1, "Not Connected-" . $this->host . " (" . $this->AppInit->getDefaultDomain() . ")");
             exit();

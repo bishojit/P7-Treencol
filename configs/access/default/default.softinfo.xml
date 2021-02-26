@@ -21,14 +21,13 @@
         <type>software</type>
         <!--<feedUrl></feedUrl>-->
 
-        <organizationName>Organization Name</organizationName>
-        <organizationAddress>House-1, Road-7, Block-E, Mirpur-1, [b]Dhaka[/b]</organizationAddress>
-        <organizationPhone>+8801925363333</organizationPhone>
-        <organizationFax>+8801925363333</organizationFax>
+        <organizationName>BIKIRAN.COM</organizationName>
+        <organizationAddress>BIKIRAN.COM Official Address</organizationAddress>
+        <organizationPhone>+8801925******</organizationPhone>
+        <organizationFax>+8801925******</organizationFax>
         <organizationWebsite>http://www.bikiran.com</organizationWebsite>
-        <organizationEmail>info@bikiran.com</organizationEmail>
+        <organizationEmail>treencol@bikiran.com</organizationEmail>
         <organizationLogoUrl>/assets/logo-bikiran.png</organizationLogoUrl>
-
     </software>
 
     <fb>

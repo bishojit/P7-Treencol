@@ -1,4 +1,7 @@
 <resources>
-    <multi_users type="bool">1</multi_users>
-    <upload_dir type="string">cloud-uploads/</upload_dir>
+    <MultyUsers type="bool" value="true"/>
+    <FileUploadDirectory type="string" value="cloud-uploads/"/>
+
+    <SessionAccess type="bool" value="true"/>
+    <TokenAccess type="bool" value="true" name="Secure-Access"/>
 </resources>
