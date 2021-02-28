@@ -15,15 +15,48 @@ $HeaderMeta = new HeaderMeta();
     <title><?= $HeaderMeta->getFullTitle() ?></title>
 
     <?= $HeaderMeta->getMeta() ?>
-    <?= assetsCss('dore') ?>
+    <? //= assetsCss('develop') ?>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .welcome {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: #333;
+        }
+
+        #animate-me{
+            width:100%;
+            height:100%;
+        }
+
+        .animate-char{
+color:#FFF;
+        }
+    </style>
 </head>
 <body>
 
-<?= assetsJs('dore') ?>
+<div class="welcome">
+    <div id="animate-me">TREENCOL</div>
+</div>
 
+<? //= assetsJs('develop') ?>
 <script>
+    const area = document.querySelector('#animate-me');
+    const text = area.innerHTML;
+    const spannedText = text.split('').map((item, i) => {
+        return `<span class="animate-char" id="text-${i}">${item}</span>`;
+    });
 
+    area.innerHTML = `<div>${spannedText.join("")}</div>`;
+
+    console.log()
 </script>
-
 </body>
 </html>
