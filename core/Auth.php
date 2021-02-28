@@ -17,7 +17,7 @@ class Auth
     public function __construct(SystemDefaults $SystemDefaults, int $userIndex, string $uriMethod)
     {
         global $SoftInfo;
-        $this->uriMethod = $uriMethod;
+        $this->uriMethod = strtoupper($uriMethod);
 
         $this->SystemDefaults = $SystemDefaults;
         //$multiUser = $this->SystemDefaults->getMultiUser();
@@ -86,7 +86,7 @@ class Auth
             }
 
             if ($message) {
-                if ($uriMethod == "GET") {
+                if ($this->uriMethod == "GET") {
                     $configLoginRoute = $SoftInfo->getData()->system->loginUri;
                     $currentUrl = mkUrl(route()->getUriRoute(), route()->getUriVariablesAr(), $_GET);
                     $loginPage = mkUrl($configLoginRoute, [], ['url' => $currentUrl]);
