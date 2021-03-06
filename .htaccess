@@ -11,6 +11,15 @@ RewriteRule . /index.php [L]
 
 # END Treencol
 
+# Access of Other Software
+<IfModule mod_headers.c>
+    #Header always set Access-Control-Allow-Origin "*"
+    #Header always set Access-Control-Allow-Methods "*"
+    #Header always set Access-Control-Allow-Headers "*"
+    #Header always set Access-Control-Expose-Headers "Secure-Access, Uid, Secure-Auth"
+    #Header edit Set-Cookie ^(.*)$ "$1; Secure; SameSite=None"
+</IfModule>
+
 #RewriteEngine On
 #RewriteCond %{HTTPS} !=on
 #RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
