@@ -29,9 +29,6 @@ class Users
         $this->userInfoAr = $userInfoAr;
         $this->password = md5($password);
         $this->userSl = $this->userInfoAr['sl'] ?: 0;
-
-        $this->uniqueKey = Generate::token(32);
-        $this->tempKey = Generate::token(32);
     }
 
     private function infoValidation(): self
@@ -81,6 +78,9 @@ class Users
     private function createLoginLog(): self
     {
         if ($this->isSessionCreated == true) {
+            $this->uniqueKey = Generate::token(32);
+            $this->tempKey = Generate::token(32);
+
             $insertLog = new QueryInsert('system_users_login');
             $insertLog->addRow([
                 'user_sl' => $this->userSl,
