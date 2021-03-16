@@ -43,11 +43,11 @@ class DbConnect
                 $this->opt
             );
         } catch (PDOException $e) {
-            dc($e);
-
+            //dc($e->getMessage());
             ErrorPages::DbConnect(1, "Not Connected-" . $this->host . " (" . $this->AppInit->getDefaultDomain() . ")");
-            exit();
         }
+
+        return new PDO(null, null, null); // Fake Line Never Execute
     }
 
     public function getOpt(): array

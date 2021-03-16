@@ -35,20 +35,16 @@ class ErrorPages
 
     private static function view(string $func, array $val_ar = [])
     {
-        $layoutPath = "/app/_defaults/default_pages/" . self::$layoutAr[$func];
+        //--Define Request Type & Template
+        $isJsonHeader = isAcceptContentType("application/json");
 
-        //--Check Method
-        global $AppInit;
-        $uriMethod = $AppInit->getUriMethod();
-
-        if ($uriMethod == "post") {
+        if ($isJsonHeader) {
             echo json_encode([
                 'error' => $val_ar['code'],
                 'message' => $val_ar['message'],
-                'do' => "",
-            ], JSON_FORCE_OBJECT);
-        } else { // if ($uriMethod == "get")
-            echo view($layoutPath, $val_ar);
+            ]);
+        } else {
+            echo view("/app/_defaults/default_pages/" . self::$layoutAr[$func], $val_ar);
         }
 
         exit();

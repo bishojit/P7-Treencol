@@ -104,6 +104,7 @@ function getRow(string $table, int $sl): array
     return $qOut->fetch() ?: [];
 }
 
+//--Template View
 function view(string $layoutPath, array $val = []): string
 {
     global $Route;
@@ -312,4 +313,9 @@ function date_show(string $format, int $timestamp = null, string $fallBack = "--
     }
 
     return $timestamp ? date($format, $timestamp) : $fallBack;
+}
+
+function isAcceptContentType($contentType): bool
+{
+    return in_array($contentType, array_map("trim", explode(",", getallheaders()['Accept'])));
 }

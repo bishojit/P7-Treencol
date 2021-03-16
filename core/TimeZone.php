@@ -20,6 +20,7 @@ class TimeZone
     {
 
         if (!$userTimeZone) {
+
             ErrorPages::TimeZone(1, "Error on TimeZone > setTimeZone ($userTimeZone).");
         }
 
@@ -30,9 +31,10 @@ class TimeZone
             $this->time = time();
             return true;
         } else {
+
             ErrorPages::TimeZone(2, "Invalid Time Zone [" . $userTimeZone . "].");
-            exit();
         }
+        return false;
     }
 
     function getTime(): int

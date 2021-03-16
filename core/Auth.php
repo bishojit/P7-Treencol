@@ -65,9 +65,7 @@ class Auth
             //--Collect Remain Permission
             $this->remainPermission_ar = $this->chkRemainPermission($this->requiredPermission_ar, $this->detectedPermission_ar);
             if (!$SoftInfo->getData()->system->loginUri) {
-
                 ErrorPages::Auth(1, "Please configure default." . getDefaultDomain() . ".xml->system->loginUri", $this);
-                exit();
             }
 
             $message = "";
@@ -81,7 +79,6 @@ class Auth
 
                 $message = "User not active";
             } else if (!empty($this->remainPermission_ar)) {
-
                 ErrorPages::Auth(2, "Invalid Permission or More Permission Required (" . implode(", ", $this->remainPermission_ar) . ")", $this);
             }
 
@@ -105,7 +102,6 @@ class Auth
                 //message("User not active"); //todo: error-code required
                 exit();
             } else if (!empty($this->remainPermission_ar)) {
-
                 ErrorPages::Auth(2, "Invalid Permission or More Permission Required", $this);
             }
 
@@ -140,8 +136,6 @@ class Auth
             if ($userSl) {
                 header("Secure-Auth: true");
             }
-
-            //dd($select->getQueryString());
 
             return $userSl;
         }
