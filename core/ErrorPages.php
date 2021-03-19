@@ -9,7 +9,7 @@ class ErrorPages
     private static array $errorsAr = [
         "AppInit" => 11,
         "Route" => 12,
-        "RouteUrl" => 12,
+        "RouteUrl" => 18,
         "DbConnect" => 13,
         "TimeZone" => 14,
         "Auth" => 15,
