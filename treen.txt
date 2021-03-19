@@ -1,0 +1,6 @@
+Creating Module:
+php treen --module -create 'images'
+
+
+Upgrade:
+php treen --upgrade
