@@ -170,7 +170,7 @@ class Users
         }
     }
 
-    static function generateBrowserChecksum()
+    static function generateBrowserChecksum(): string
     {
         return md5($_SERVER['HTTP_USER_AGENT']);
     }
