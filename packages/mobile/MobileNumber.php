@@ -99,11 +99,11 @@ class MobileNumber
 
     public function getNumbers(): array
     {
-        return $this->mobileNumberAr;
+        return $this->mobileNumberAr ?: [];
     }
 
     public function getNumbersRawAr(): array
     {
-        return $this->mobileRawAr;
+        return $this->mobileRawAr ?: [];
     }
 }
