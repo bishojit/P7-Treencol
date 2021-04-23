@@ -131,6 +131,33 @@ class FileUpload
         }
         return $this->uploadSt;
     }
+    
+    public function copyFile(): bool
+    {
+        global $SystemDefaults;
+        $systemDir = $SystemDefaults->getUploadDir();
+
+        if ($this->checkError() == 0) {
+            $path[0] = $systemDir;
+            $path[1] = $systemDir . $this->defaultDir . $this->generatedDir;
+            $path[2] = $systemDir . $this->defaultDir . $this->generatedDir . $this->id;
+
+            //--Creating DIR if not exist
+            if (!is_dir($path[1])) {
+                mkdir($path[1], 0777, true);
+            }
+
+            //--Saving File on DIR
+            if (is_dir($path[1])) {
+                $this->uploadSt = copy($this->fileInfo['tmp_name'], $path[2]);
+            }
+
+            if ($this->uploadSt) {
+                $this->fileUploadedPath = $path[2];
+            }
+        }
+        return $this->uploadSt;
+    }
 
     public function saveData(): int
     {
