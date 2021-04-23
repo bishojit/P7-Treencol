@@ -65,7 +65,7 @@ class Auth
             //--Collect Remain Permission
             $this->remainPermission_ar = $this->chkRemainPermission($this->requiredPermission_ar, $this->detectedPermission_ar);
             if (!$SoftInfo->getData()->system->loginUri) {
-                ErrorPages::Auth(1, "Please configure default." . getDefaultDomain() . ".xml->system->loginUri", $this);
+                ErrorPages::Auth(1, "You are not Logged in", $this);
             }
 
             $message = "";
@@ -91,7 +91,7 @@ class Auth
                     if ($loginPage != "#") {
                         header("Location: {$loginPage}");
                     } else {
-                        ErrorPages::Auth(2, "Invalid Login Route in " . getDefaultDomain() . ".softinfo.xml file ->system->loginUri", $this);
+                        ErrorPages::Auth(2, "You are not logged in", $this);
                     }
                 } else {
                     echo json_encode([
